@@ -106,7 +106,7 @@ switch(key)
         pick(gripper);
     case 'p'
         place(gripper);
-    case j
+    case 'j'
         main
         
 end
