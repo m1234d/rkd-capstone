@@ -108,6 +108,9 @@ switch(key)
         place(gripper);
     case 'j'
         main
+    case 'k'
+        data
+        goal_thetas = input_pos;
         
 end
 
