@@ -2,7 +2,7 @@ close all
 HebiLookup.setLookupAddresses('*');
 HebiLookup.clearModuleList();
 HebiLookup.clearGroups();
-pause(3);
+pause(.2);
 G = load('jenga_gains.mat');
 G.jenga_gains.positionKp = [1 1 1 1 1];
 G.jenga_gains.positionKi = [0 0 0 0 0];
