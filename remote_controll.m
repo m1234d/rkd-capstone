@@ -109,8 +109,7 @@ switch(key)
     case 'j'
         main
     case 'k'
-        data
-        goal_thetas = input_pos;
+        goal_thetas = load('data.mat', 'input_pos');
         
 end
 
