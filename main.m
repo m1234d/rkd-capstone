@@ -2,11 +2,11 @@ HebiLookup.setLookupAddresses('*');
 HebiLookup.clearModuleList();
 pause(.2);
 G = load('jenga_gains.mat');
-G.jenga_gains.positionKp = [1 1 1 1 1];
-G.jenga_gains.positionKi = [0 0 0 0 0];
+G.jenga_gains.positionKp = [1 5 5 2  2];
+G.jenga_gains.positionKi = [0.1 0.3 0.3 0.3 0.2];
 G.jenga_gains.positionKd = [.01 .01 .01 .01 .01];
 G.jenga_gains.velocityKp = [.01 .01 .01 .01 .01];
-G.jenga_gains.positionFF = [0 .5 .5 0 0]; %no idea what this is
+G.jenga_gains.positionFF = [0 .05 .05 0 0]; %no idea what this is
 
 % Connect to physical robot
 robot_hardware = HebiLookup.newGroupFromNames('16384',{'base','shoulder','elbow','wrist1','wrist2'});
@@ -15,8 +15,8 @@ gripper = HebiLookup.newGroupFromNames('16384','gripper');
 gripper.setCommandLifetime(0);
 gripper.setFeedbackFrequency(100);
 
-robot.setCommandLifetime(1);
-robot.set('gains',G.jenga_gains);
+%robot.setCommandLifetime(1);
+%robot.set('gains',G.jenga_gains);
 warning('Before continuing, ensure no persons or objects are within range of the robot!\nAlso, ensure that you are ready to press "ctrl-c" if the robot does not act as expected!');
 disp('');
 input('Once ready, press "enter" to continue...','s');
@@ -56,28 +56,29 @@ robot.ee(goal_theta)
 
 % waypoints = linear_joint_trajectory(start_theta, goal_theta, 3)
 waypoints = [];
-neutral_pos = [ 0.1342    0.7223    1.0825    1.5707   -2.3401];
+neutral_pos = [      0.1435    0.8698    1.5698    1.4640   -1.4582];
 %pick_pos = [0.2877, 0.7402, 1.0114, 1.7654, -2.3153];
-actual_pick_pos = [  0.1342    0.5823    0.9625    1.5707   -2.3401];
-actual_pick_pos2 = [  0.1342    0.6023    0.9625    1.5707   -2.3401];
-actual_pick_pos3 = [  0.1342    0.6023    0.9625    1.5707   -2.3401];
+actual_pick_pos = [  0.1435    0.7698    1.5698    1.5640   -1.4582];
+actual_pick_pos2 = [  0.1435    0.7698    1.5698    1.5640   -1.4582];
+actual_pick_pos3 = [  0.1435    0.7698    1.5698    1.5640   -1.4582];
+pick_away = [0.1435    1.1098    1.7898    1.6240   -1.4582];
 
 pre_place_pos = [    0.9522    0.7220    1.0147    0.8009   -2.3401];
 offset = 0;
 a=.5*offset;
 b = offset*1;
 c = offset*1.2;
-p1_approach = [0.8823    0.6629    1.0704    0.9475   -2.9673];
-p1 = [0.8823    0.5629    1.0704    0.9475   -3.1];
-p1_leaving = [0.8823    0.6629    1.0704    0.9475   -2.9673];
-p2_approach = [0.96    0.6602    0.9914    0.9654   -2.9753];
-p2 = [ 0.92    0.5602    0.9914    0.9654   -3.0];
-p2_leaving = [0.9677    0.6602    0.9914    0.9654   -2.9753];
-p3_approach = [1.0321    0.7602    1.0087    1.1355    -2.9753];
+p1_approach = [0.9035    0.8098    1.6898    0.9840   -2.2782];
+p1 = [0.8835    0.7698    1.7098    1.0040   -2.2782];
+p1_leaving = [ 0.8835    0.8498    1.7098    1.0040   -2.2782];
+p2_approach = [0.9235    0.8098    1.6498    0.9840   -2.1782];
+p2 = [ 0.9035    0.7498    1.6298    0.9840   -2.1782];
+p2_leaving = [0.9035    0.8898    1.6298    0.9840   -2.1782];
+p3_approach = [0.9835    0.7898    1.5698    0.9440   -2.1782];
 %p3 = [0.9677    0.5402+c    0.9114    1.0054   -2.7953-c];
-p3 = [0.9321    0.5402    1.0087    1.1355   -2.9753];
-p3_leaving = [0.9921    0.7202    1.0087    1.1355     -2.9753];
-waypoints = [start_theta.'; neutral_pos; actual_pick_pos; neutral_pos; pre_place_pos;p1_approach;p1; p1_leaving;neutral_pos; actual_pick_pos2; neutral_pos; pre_place_pos; p2_approach;p2;p2_leaving; neutral_pos; actual_pick_pos3; neutral_pos; p3_approach;p3;p3_leaving;neutral_pos].';
+p3 = [0.9435    0.7298    1.5698    1.0040   -2.1782];
+p3_leaving = [0.9835    0.8298    1.5698    1.0040   -2.1782];
+waypoints = [start_theta.'; neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p1_approach;p1; p1_leaving;neutral_pos; actual_pick_pos2; pick_away; pre_place_pos; p2_approach;p2;p2_leaving; neutral_pos; actual_pick_pos3; pick_away; p3_approach;p3;p3_leaving;neutral_pos].';
 
 % waypoints = linear_workspace_trajectory(robot, start_theta, goal_pos, 3)
 

@@ -4,14 +4,14 @@ HebiLookup.clearModuleList();
 HebiLookup.clearGroups();
 pause(.2);
 G = load('jenga_gains.mat');
-G.jenga_gains.positionKp = [1 1 1 1 1];
+G.jenga_gains.positionKp = [1 4 5 2  2];
 G.jenga_gains.positionKi = [0 0 0 0 0];
 G.jenga_gains.positionKd = [.01 .01 .01 .01 .01];
-G.jenga_gains.velocityKp = [.01 .01 .01 .01 .01];
-G.jenga_gains.positionFF = [0 .5 .5 0 0]; %no idea what this is
+%nga_gains.velocityKp = [.01 .01 .01 .01 .01];
+G.jenga_gains.positionFF = [0 .05 .05 0 0]; %no idea what this is
 robot = HebiLookup.newGroupFromNames('16384',{'base','shoulder','elbow','wrist1','wrist2'});
-robot.setCommandLifetime(1);
-robot.set('gains',G.jenga_gains);
+%robot.setCommandLifetime(1);
+%robot.set('gains',G.jenga_gains);
 
 global gripper
 gripper = HebiLookup.newGroupFromNames('16384','gripper');
@@ -36,18 +36,24 @@ input('press enter to begin')
 %should put gripper init here
 fbk = robot.getNextFeedback();
 global goal_thetas;
-goal_thetas = fbk.position;
+goal_thetas = [0.1435    0.8698    1.5698    1.4640   -1.4582];
 
-
+debug = 0;
 figgy = figure();
 set(figgy,'WindowKeyPressFcn',@keypress)
 
 while true
     if goal_thetas(1) ~= -1
+        if debug ~= 0
+            fbk = robot.getNextFeedback();
+            goal_thetas = fbk.position;
+        else
         cmd = CommandStruct();
         cmd.position = goal_thetas;
         cmd.velocity = [0 0 0 0 0];
-        robot.set(cmd);
+        robot.set(cmd);                        
+    end
+    
     end
     pause(0.01)
     timer = timer +0.01;
@@ -91,12 +97,12 @@ switch(key)
         goal_thetas = known_path(index,:);
     case 'return'
         disp(goal_thetas)
-    case '1'
-        known_path(end+1,:) = goal_thetas;
     case '2'
-        known_path = known_path(end-1,:);
+         goal_thetas = [0.1435    0.7698    1.5698    1.5640   -1.4582];
+    case '1'
+        goal_thetas =  [0.1435    0.8698    1.5698    1.4640   -1.4582];
     case '3'
-        known_path = [];
+        goal_thetas = [0.1435    1.0098    1.7898    1.6240   -1.4582];
     case '0'
         path = known_path;
         save('shikata','path')
