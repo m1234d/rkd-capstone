@@ -87,20 +87,10 @@ p5_leaving = [0.9635    0.8498    1.6098    0.9040  -2.1282+0.5*pi];
 p6_approach = [1.0435    0.8298    1.6898    0.9240 -2.1282+0.5*pi];
 p6 = [0.9835    0.7698    1.6298    0.9240 -2.1282+0.5*pi];
 p6_leaving = [0.9835    0.8698    1.6298    0.9240 -2.1282+0.5*pi];
-p7_approach =  [0.9235  0.8698, 1.6898    0.9640,  -2.1282];
+p7_approach =  0.9235  0.8698 1.6898    0.9640  -2.1282];
 p7 = [0.9235    0.8498    1.7098    1.0640 -2.1282];
-p7_leaving = [0.9235    1.0498    1.7098    1.0640 -2.1282];
-
-
-p8_approach =  [0.9435    0.8498    1.5698    0.9040  -2.1282];
-p8 = [0.9035    0.7898    1.5898    0.9440  -2.1282];
-p8_leaving = [0.9035    0.9898    1.5898    0.9440  -2.1282];
-
-
-p9_approach =  [0.9522    0.8200    1.4747    0.8009  -2.1282];
-p9 = [ 0.9522    0.7600    1.4947    0.8209   -2.1001];
-p9_leaving = [ 0.9522    0.9600    1.4947    0.8209   -2.1001];
-waypoints = [start_theta.'; neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p1_approach;p1; p1_leaving;neutral_pos; actual_pick_pos2; pick_away; pre_place_pos; p2_approach;p2;p2_leaving; neutral_pos; actual_pick_pos3; pick_away; p3_approach;p3;p3_leaving;neutral_pos; neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p4_approach;p4; p4_leaving; neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p5_approach;p5; p5_leaving;   neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p6_approach;p6; p6_leaving ;   neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p7_approach;p7; p7_leaving;  neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p8_approach;p8; p8_leaving; neutral_pos; actual_pick_pos; pick_away;  pre_place_pos; p9_approach;p9; p9_leaving; neutral_pos ].';
+p7_leaving = [0.9235    0.8498    1.7098    1.0640 -2.1282];
+waypoints = [start_theta.'; neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p1_approach;p1; p1_leaving;neutral_pos; actual_pick_pos2; pick_away; pre_place_pos; p2_approach;p2;p2_leaving; neutral_pos; actual_pick_pos3; pick_away; p3_approach;p3;p3_leaving;neutral_pos; neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p4_approach;p4; p4_leaving; neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p5_approach;p5; p5_leaving;   neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p6_approach;p6; p6_leaving ;   neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p7_approach;p7; p7_leaving].';
 
 % waypoints = linear_workspace_trajectory(robot, start_theta, goal_pos, 3)
 
@@ -198,19 +188,6 @@ for i = 1 : (size(traj_from_start, 2) - 1)
             pick(gripper);
          end
          if i == 4800
-            place(gripper);            
-         end
-         
-         if i == 5100
-            pick(gripper);
-         end
-         if i == 5500
-            place(gripper);            
-         end
-         if i == 5800
-            pick(gripper);
-         end
-         if i == 6200
             place(gripper);            
          end
          if i == 600 %nominally 400

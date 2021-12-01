@@ -36,7 +36,7 @@ input('press enter to begin')
 %should put gripper init here
 fbk = robot.getNextFeedback();
 global goal_thetas;
-goal_thetas = [0.9635    0.7898    1.6098    0.9440  -2.1782+0.5*pi];
+goal_thetas = [ 0.9522    1.220    1.0147    0.8009   -2.3401];
 
 debug = 0;
 figgy = figure();
