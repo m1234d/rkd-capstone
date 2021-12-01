@@ -63,7 +63,7 @@ actual_pick_pos2 = [  0.1435    0.7698    1.5698    1.5640   -1.4582];
 actual_pick_pos3 = [  0.1435    0.7698    1.5698    1.5640   -1.4582];
 pick_away = [0.1435    1.1098    1.7898    1.6240   -1.4582];
 
-pre_place_pos = [    0.9522    0.7220    1.0147    0.8009   -2.3401];
+pre_place_pos = [    0.9522    1.220    1.0147    0.8009   -2.3401];
 offset = 0;
 a=.5*offset;
 b = offset*1;
@@ -78,7 +78,16 @@ p3_approach = [0.9835    0.7898    1.5698    0.9440   -2.1782];
 %p3 = [0.9677    0.5402+c    0.9114    1.0054   -2.7953-c];
 p3 = [0.9435    0.7298    1.5698    1.0040   -2.1782];
 p3_leaving = [0.9835    0.8298    1.5698    1.0040   -2.1782];
-waypoints = [start_theta.'; neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p1_approach;p1; p1_leaving;neutral_pos; actual_pick_pos2; pick_away; pre_place_pos; p2_approach;p2;p2_leaving; neutral_pos; actual_pick_pos3; pick_away; p3_approach;p3;p3_leaving;neutral_pos].';
+p4 = [0.9035    0.7598    1.5498    0.9040 -2.1782+0.5*pi];
+p4_approach = [0.9035    0.8098    1.5698    0.9040 -2.1782+0.5*pi];
+p4_leaving = [0.9035    0.8098    1.5698    0.9040 -2.1782+0.5*pi];
+p5_approach = [0.9635    0.8498    1.6098    0.9040  -2.1782+0.5*pi];
+p5 = [0.9635    0.7598    1.6098    0.9440  -2.1282+0.5*pi];
+p5_leaving = [0.9635    0.8498    1.6098    0.9040  -2.1282+0.5*pi];
+p6_approach = [1.0435    0.8298    1.6898    0.9240 -2.1282+0.5*pi];
+p6 = [0.9835    0.7698    1.6298    0.9240 -2.1282+0.5*pi];
+p6_leaving = [0.9835    0.8698    1.6298    0.9240 -2.1282+0.5*pi];
+waypoints = [start_theta.'; neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p1_approach;p1; p1_leaving;neutral_pos; actual_pick_pos2; pick_away; pre_place_pos; p2_approach;p2;p2_leaving; neutral_pos; actual_pick_pos3; pick_away; p3_approach;p3;p3_leaving;neutral_pos; neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p4_approach;p4; p4_leaving; neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p5_approach;p5; p5_leaving;   neutral_pos; actual_pick_pos; pick_away;  pre_place_pos;p6_approach;p6; p6_leaving].';
 
 % waypoints = linear_workspace_trajectory(robot, start_theta, goal_pos, 3)
 
@@ -154,9 +163,27 @@ for i = 1 : (size(traj_from_start, 2) - 1)
          if i == 1900
             place(gripper);
          end
+         if i == 2300
+            pick(gripper);
+         end
+         if i == 2700
+            place(gripper);
+         end
+         if i == 3000
+            pick(gripper);
+         end
+         if i == 3400
+            place(gripper);
+         end
+         if i == 3700
+            pick(gripper);
+         end
+         if i == 4100
+            place(gripper);            
+         end
          if i == 600 %nominally 400
             place(gripper);
-        
+         end
 %        if i == 200
  %           pick(gripper);
   %    if i == 400 %nominally 400
@@ -189,7 +216,6 @@ end
 %     % Wait a little bit to send at ~100Hz.
 %     pause(1 / frequency);
 % end
-end
 
 %function [] = pick(suction_cup)
  % suction_cmd = IoCommandStruct();
